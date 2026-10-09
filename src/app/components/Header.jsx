@@ -10,8 +10,6 @@ const Header = () => {
   return (
     <div>
       <div className="border-b border-gray-200">
-        {/* navbar-start */}
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Link
             href="/"
@@ -40,19 +38,18 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <Link
               href="/signin"
-              className="text-m font-bold text-gray-700 hover:text-[#05893E] transition-colors"
+              className="px-6 py-2.5 rounded-xl text-m font-bold text-gray-700 hover:bg-gray-200 hover:text-[#05893E] transition-colors"
             >
               সাইন ইন
             </Link>
 
             <Link
               href="/signup"
-              className="px-6 py-2.5 text-m font-bold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] rounded-xl shadow-md transition-all duration-200"
+              className="px-6 py-2.5 text-m font-bold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] hover:text-gray-200 rounded-xl shadow-md transition-all duration-200"
             >
               সাইন আপ
             </Link>
           </div>
-          {/* navbar-end */}
         </div>
       </div>
       <NavLinks />

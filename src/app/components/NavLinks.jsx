@@ -13,7 +13,7 @@ const NavLinks = async () => {
         <Link
           href={`/categories/${n.slug}`}
           key={n.id}
-          className="flex items-center gap-2 hover:text-[#05893E] transition-colors"
+          className="flex items-center gap-2 hover:bg-gray-200 px-4 py-2 rounded-xl transition-colors"
         >
           <span>{n.icon}</span>
           <span>{n.nameBn}</span>
