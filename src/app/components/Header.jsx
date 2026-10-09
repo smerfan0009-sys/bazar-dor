@@ -1,41 +1,62 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavLinks from "./NavLinks";
 
 const Header = () => {
+  const currentDate = new Date().toLocaleDateString("bn-BD", {
+    dateStyle: "full",
+  });
+
   return (
-    <header className="w-full bg-white shadow-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* navbar start */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/assets/logo-icon.png"
-            alt="Logo"
-            width={45}
-            height={45}
-            priority
-            className="object-contain"
-          />
-          <span className="text-xl font-bold text-[#05893E]">BrandName</span>
-        </Link>
+    <div>
+      <div className="border-b border-gray-200">
+        {/* navbar-start */}
 
-        {/* navbar end */}
-        <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Link
-            href="/login"
-            className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-[#05893E] transition-colors"
+            href="/"
+            className="flex items-center gap-3 hover:cursor-pointer"
           >
-            Log in
+            <div className="bg-[#05893E] p-2.5 rounded-2xl flex items-center justify-center">
+              <Image
+                src="/assets/logo-icon.png"
+                alt="logo"
+                width={30}
+                height={30}
+                priority
+              />
+            </div>
+
+            <div>
+              <h1 className="text-xl font-extrabold text-gray-700 leading-tight">
+                বাজার দর
+              </h1>
+              <p className="text-xs text-gray-700 font-medium h-4">
+                {currentDate}
+              </p>
+            </div>
           </Link>
 
-          <Link
-            href="/signup"
-            className="px-5 py-2 text-sm font-medium text-white bg-[#05893E] hover:bg-[#046e32] rounded-lg shadow-sm transition-all duration-200"
-          >
-            Sign up
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/signin"
+              className="text-m font-bold text-gray-700 hover:text-[#05893E] transition-colors"
+            >
+              সাইন ইন
+            </Link>
+
+            <Link
+              href="/signup"
+              className="px-6 py-2.5 text-m font-bold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] rounded-xl shadow-md transition-all duration-200"
+            >
+              সাইন আপ
+            </Link>
+          </div>
+          {/* navbar-end */}
         </div>
       </div>
-    </header>
+      <NavLinks />
+    </div>
   );
 };
 
