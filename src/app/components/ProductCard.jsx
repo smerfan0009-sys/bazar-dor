@@ -33,7 +33,7 @@ const toBengaliNumber = (num) => {
 export default function ProductCard({ product, isUp }) {
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={`/product/${product.id}`}
       className="card border border-base-300 bg-base-100 transition hover:border-primary hover:shadow-lg rounded-2xl block"
     >
       <div className="card-body gap-3 p-5">
