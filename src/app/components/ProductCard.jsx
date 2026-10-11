@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 const unitMap = {
@@ -31,13 +30,7 @@ const toBengaliNumber = (num) => {
     .replace(/[0-9.]/g, (digit) => englishToBengaliMap[digit] || digit);
 };
 
-export default function ProductCard({ product }) {
-  const dir = product.change?.dir;
-  const pct = product.change?.pct ?? 0;
-  const isUp = dir === "up";
-  const isDown = dir === "down";
-  const isFlat = dir === "flat" || pct === 0;
-
+export default function ProductCard({ product, isUp }) {
   return (
     <Link
       href={`/product/${product.slug}`}
@@ -69,30 +62,16 @@ export default function ProductCard({ product }) {
               <span className="text-base font-medium">টাকা</span>
             </p>
           </div>
-
-          {/* Dynamic Badge for Up, Down, and Flat */}
           <span
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-bold ${
               isUp
                 ? "bg-red-50 text-error border border-red-200"
-                : isDown
-                  ? "bg-green-50 text-success border border-green-200"
-                  : "bg-base-200 text-base-content/70 border border-base-300"
+                : "bg-green-50 text-success border border-green-200"
             }`}
-            title={
-              isUp
-                ? "গতকালের তুলনায় বেড়েছে"
-                : isDown
-                  ? "গতকালের তুলনায় কমেছে"
-                  : "পরিবর্তন হয়নি"
-            }
+            title={isUp ? "গতকালের তুলনায় বেড়েছে" : "গতকালের তুলনায় কমেছে"}
           >
-            <span aria-hidden="true">
-              {isUp && "▲"}
-              {isDown && "▼"}
-              {isFlat && "—"}
-            </span>
-            {toBengaliNumber(pct)}%
+            <span aria-hidden="true">{isUp ? "▲" : "▼"}</span>
+            {toBengaliNumber(product.change.pct)}%
           </span>
         </div>
       </div>
