@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -25,12 +26,16 @@ const Hero = () => {
           </p>
 
           <div>
-            <Link
-              href="#AllProducts"
-              className="inline-flex items-center justify-center px-6 py-4 text-sm font-semibold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] hover:text-gray-200 rounded-xl shadow-md transition-all duration-200  "
+            <button
+              onClick={() => {
+                document.getElementById("AllProducts")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+              className="inline-flex items-center justify-center px-6 py-4 text-sm font-semibold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] hover:text-gray-200 rounded-xl shadow-md transition-all duration-200 cursor-pointer"
             >
               সব পণ্য দেখুন
-            </Link>
+            </button>
           </div>
         </div>
 
