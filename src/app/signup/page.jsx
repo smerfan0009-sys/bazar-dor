@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
@@ -29,11 +28,23 @@ export default function SignUpPage() {
     });
 
     if (data) {
-      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
+      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
     }
 
     if (error) {
-      toast.error(error.message || "সাইন আপ করতে সমস্যা হয়েছে!");
+      toast.error(error.message || "সাইন আপ করতে সমস্যা হয়েছে!");
+    }
+  };
+
+  const handleSocialSignIn = async (provider) => {
+    try {
+      await authClient.signIn.social({
+        provider,
+        callbackURL: "/",
+      });
+      toast.info(`${provider} দিয়ে সাইন ইন করা হচ্ছে...`);
+    } catch (err) {
+      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে!");
     }
   };
 
@@ -134,6 +145,7 @@ export default function SignUpPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
+            onClick={() => handleSocialSignIn("google")}
             className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
@@ -148,6 +160,7 @@ export default function SignUpPage() {
 
           <button
             type="button"
+            onClick={() => handleSocialSignIn("github")}
             className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
