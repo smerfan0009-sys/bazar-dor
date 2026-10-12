@@ -19,7 +19,7 @@ export default function NavLinks() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center gap-2 sm:gap-4 border-b border-gray-100 overflow-x-auto">
+    <div className="flex items-center justify-center gap-2 sm:gap-4 border-b border-gray-200 overflow-x-auto">
       {categories.map((n) => {
         const href = `/categories/${n.slug}`;
         const isActive = pathname === href;
@@ -28,7 +28,7 @@ export default function NavLinks() {
           <Link
             key={n.id}
             href={href}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 shrink-0 ${
+            className={`flex items-center gap-2 p-4 rounded-xl transition-all duration-200 shrink-0 ${
               isActive
                 ? "bg-[#047F39] text-white font-bold shadow-md"
                 : "text-gray-700 hover:bg-gray-100"

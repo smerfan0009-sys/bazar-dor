@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const currentDate = new Date().toLocaleDateString("bn-BD", {
@@ -9,8 +8,8 @@ const currentDate = new Date().toLocaleDateString("bn-BD", {
 
 const Hero = () => {
   return (
-    <section className="hero max-w-7xl mx-auto rounded-3xl border border-base-300 bg-white shadow-sm p-6 sm:p-10 my-6">
-      <div className="hero-content w-full flex-col items-center justify-between gap-8 lg:flex-row">
+    <div className="max-w-7xl mx-auto rounded-3xl border border-base-300 bg-white shadow-sm p-6 sm:p-10 mt-6">
+      <div className="w-full flex-col items-center justify-between gap-8 lg:flex-row flex">
         <div className="max-w-xl text-left">
           <span className="mb-3 inline-block rounded-full bg-[#E1F0E7] px-3.5 py-2 text-sm font-medium text-[#05893E] border border-emerald-100">
             {currentDate}
@@ -32,7 +31,7 @@ const Hero = () => {
                   behavior: "smooth",
                 });
               }}
-              className="inline-flex items-center justify-center px-6 py-4 text-sm font-semibold text-white bg-[#05893E] shadow-emerald-600 hover:bg-[#046e32] hover:text-gray-200 rounded-xl shadow-md transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center justify-center px-6 py-4 text-sm font-semibold text-white bg-[#05893E] hover:bg-[#046e32] rounded-xl shadow-md shadow-emerald-600/20 transition-all duration-200 cursor-pointer"
             >
               সব পণ্য দেখুন
             </button>
@@ -42,13 +41,14 @@ const Hero = () => {
         <div className="flex justify-center w-full lg:w-auto">
           <Image
             alt="Hero Picture"
-            width="360"
-            height="288"
+            width={360}
+            height={288}
             src="/assets/bazar-hero.png"
+            priority
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
