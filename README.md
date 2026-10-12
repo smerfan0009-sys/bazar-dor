@@ -6,7 +6,7 @@
 
 ## 🔗 Live Site
 
-🌐 **Live Demo on Vercel:** <https://bazar-dor.vercel.app> _(আপনার ভার্সেল লিংকটি এখানে বসান)_
+🌐 **Live Demo on Vercel:** https://bazar-dor-nu-gules.vercel.app/
 
 ## 📌 Short Description
 
