@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
   const [name, setName] = useState("");
@@ -10,9 +13,28 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //Better Auth
+
+    if (password !== confirmPassword) {
+      toast.warning("পাসওয়ার্ড নিশ্চিতকরণের সাথে মিলছে না!");
+      return;
+    }
+
+    const { data, error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+      callbackURL: "/",
+    });
+
+    if (data) {
+      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
+    }
+
+    if (error) {
+      toast.error(error.message || "সাইন আপ করতে সমস্যা হয়েছে!");
+    }
   };
 
   return (
@@ -20,7 +42,7 @@ export default function SignUpPage() {
       {/* Header Title & Subtitle */}
       <div className="text-center mb-6 space-y-2">
         <h1 className="text-3xl font-black text-base-content">
-          অ্যাাকাউন্ট তৈরি করুন
+          অ্যাকাউন্ট তৈরি করুন
         </h1>
         <p className="text-base sm:text-lg text-base-content/70">
           বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
@@ -93,9 +115,9 @@ export default function SignUpPage() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3.5 rounded-xl font-bold text-lg text-white bg-[#047F39] hover:bg-[#036a30] transition shadow-sm mt-2"
+            className="w-full py-3.5 rounded-xl font-bold text-lg text-white bg-[#047F39] hover:bg-[#036a30] transition shadow-sm mt-2 cursor-pointer"
           >
-            অ্যাাকাউন্ট তৈরি করুন
+            অ্যাকাউন্ট তৈরি করুন
           </button>
         </form>
 
@@ -112,7 +134,7 @@ export default function SignUpPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
-            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content"
+            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
               src="/assets/Google.svg"
@@ -126,7 +148,7 @@ export default function SignUpPage() {
 
           <button
             type="button"
-            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content"
+            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
               src="/assets/GitHub.svg"
@@ -143,7 +165,7 @@ export default function SignUpPage() {
         <div className="text-center text-base text-base-content/70 pt-2">
           অ্যাকাউন্ট আছে?{" "}
           <Link
-            href="/sign-in"
+            href="/signin"
             className="text-[#047F39] font-bold hover:underline"
           >
             সাইন ইন করুন

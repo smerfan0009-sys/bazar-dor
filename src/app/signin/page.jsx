@@ -1,16 +1,49 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignInPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //Better Auth
+
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    if (data) {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+
+      setTimeout(() => {
+        router.push("/");
+        router.refresh();
+      }, 600);
+    }
+
+    if (error) {
+      toast.error(error.message || "ইমেইল বা পাসওয়ার্ড ভুল হয়েছে!");
+    }
+  };
+
+  const handleSocialSignIn = async (provider) => {
+    try {
+      await authClient.signIn.social({
+        provider,
+        callbackURL: "/",
+      });
+      toast.info(`${provider} দিয়ে সাইন ইন করা হচ্ছে...`);
+    } catch (err) {
+      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে!");
+    }
   };
 
   return (
@@ -59,7 +92,7 @@ export default function SignInPage() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3.5 rounded-xl font-bold text-lg text-white bg-[#047F39] hover:bg-[#036a30] transition shadow-sm mt-2"
+            className="w-full py-3.5 rounded-xl font-bold text-lg text-white bg-[#047F39] hover:bg-[#036a30] transition shadow-sm mt-2 cursor-pointer"
           >
             সাইন ইন
           </button>
@@ -78,7 +111,8 @@ export default function SignInPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
-            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content"
+            onClick={() => handleSocialSignIn("google")}
+            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
               src="/assets/Google.svg"
@@ -92,7 +126,8 @@ export default function SignInPage() {
 
           <button
             type="button"
-            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content"
+            onClick={() => handleSocialSignIn("github")}
+            className="flex items-center justify-center gap-2 border border-base-300 py-3 px-3 rounded-xl hover:bg-base-200 transition text-sm sm:text-base font-semibold text-base-content cursor-pointer"
           >
             <Image
               src="/assets/GitHub.svg"
@@ -109,7 +144,7 @@ export default function SignInPage() {
         <div className="text-center text-base text-base-content/70 pt-2">
           অ্যাকাউন্ট নেই?{" "}
           <Link
-            href="/sign-up"
+            href="/signup"
             className="text-[#047F39] font-bold hover:underline"
           >
             সাইন আপ করুন

@@ -168,7 +168,6 @@ export default function ProductDetailsPage() {
 
       {/* Main Container Card Summary and Table */}
       <div className="card bg-base-100 border border-base-300 shadow-sm p-6 sm:p-8 rounded-2xl space-y-8">
-        {/* Damer Sarongkkhep (Summary) */}
         <div className="space-y-4">
           <h2 className="text-xl font-bold text-base-content">
             দামের সারসংক্ষেপ
