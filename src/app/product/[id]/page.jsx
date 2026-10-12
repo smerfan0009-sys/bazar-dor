@@ -1,8 +1,10 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const toBengaliNumber = (num) => {
   if (num === null || num === undefined) return "";
@@ -36,13 +38,28 @@ const unitMap = {
 
 export default function ProductDetailsPage() {
   const params = useParams();
+  const router = useRouter();
   const id = params.id;
+
+  const { data: session, isPending: sessionPending } = authClient.useSession();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const toastIdRef = useRef(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!sessionPending && !session) {
+      if (!toast.isActive(toastIdRef.current)) {
+        toastIdRef.current = toast.error(
+          "প্রোডাক্টের বিস্তারিত দেখতে প্রথমে সাইন ইন করুন!",
+        );
+      }
+      router.push("/signin");
+    }
+  }, [session, sessionPending, router]);
+
+  useEffect(() => {
+    if (!id || !session) return;
 
     fetch(`https://openapi.programming-hero.com/api/bazardor/products/${id}`)
       .then((res) => res.json())
@@ -55,14 +72,20 @@ export default function ProductDetailsPage() {
         console.error(err);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, session]);
 
-  if (loading) {
+  if (sessionPending || loading) {
+    if (!sessionPending && !session) return null;
+
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center font-medium text-lg animate-pulse">
         Loading....
       </div>
     );
+  }
+
+  if (!session) {
+    return null;
   }
 
   if (!product) {
@@ -134,7 +157,7 @@ export default function ProductDetailsPage() {
                       : ""
                 }
               >
-                {isUp ? "বেড়েছে" : isDown ? "কমেছে" : "পরিবর্তন হয়নি"}{" "}
+                {isUp ? "বেড়েছে" : isDown ? "কমেছে" : "পরিবর্তন হয়নি"}{" "}
                 {toBengaliNumber(pct)}%
               </span>
             </p>
