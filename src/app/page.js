@@ -11,7 +11,6 @@ const Home = () => {
       <Hero />
       <TodayPriceUpAndDown />
       <AllProducts />
-
     </div>
   );
 };
