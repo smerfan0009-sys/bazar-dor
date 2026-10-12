@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 
 const unitMap = {
@@ -30,11 +31,17 @@ const toBengaliNumber = (num) => {
     .replace(/[0-9.]/g, (digit) => englishToBengaliMap[digit] || digit);
 };
 
-export default function ProductCard({ product, isUp }) {
+export default function ProductCard({ product }) {
+  const dir = product.change?.dir;
+  const pct = product.change?.pct ?? 0;
+  const isUp = dir === "up";
+  const isDown = dir === "down";
+  const isFlat = dir === "flat" || pct === 0;
+
   return (
     <Link
       href={`/product/${product.id}`}
-      className="card border border-base-300 bg-base-100 transition hover:border-primary hover:shadow-lg rounded-2xl block"
+      className="card border border-base-300 bg-base-100 transition hover:border-green-700 hover:shadow-lg rounded-2xl block"
     >
       <div className="card-body gap-3 p-5">
         <div className="flex items-start gap-4">
@@ -62,16 +69,22 @@ export default function ProductCard({ product, isUp }) {
               <span className="text-base font-medium">টাকা</span>
             </p>
           </div>
+
           <span
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-bold ${
               isUp
                 ? "bg-red-50 text-error border border-red-200"
-                : "bg-green-50 text-success border border-green-200"
+                : isDown
+                  ? "bg-green-50 text-success border border-green-200"
+                  : "bg-base-200 text-base-content/70 border border-base-300"
             }`}
-            title={isUp ? "গতকালের তুলনায় বেড়েছে" : "গতকালের তুলনায় কমেছে"}
           >
-            <span aria-hidden="true">{isUp ? "▲" : "▼"}</span>
-            {toBengaliNumber(product.change.pct)}%
+            <span aria-hidden="true">
+              {isUp && "▲"}
+              {isDown && "▼"}
+              {isFlat && "—"}
+            </span>
+            {toBengaliNumber(pct)}%
           </span>
         </div>
       </div>

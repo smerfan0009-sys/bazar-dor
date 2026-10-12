@@ -60,7 +60,7 @@ export default function ProductDetailsPage() {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center font-medium text-lg animate-pulse">
-        Loading hocche...
+        Loading....
       </div>
     );
   }
@@ -68,7 +68,7 @@ export default function ProductDetailsPage() {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center text-error font-bold">
-        Ponnyti paoya jayni!
+        Product not found!
       </div>
     );
   }
@@ -255,6 +255,3 @@ export default function ProductDetailsPage() {
     </div>
   );
 }
-<a class="btn btn-ghost" href="/category/sobji">
-  🥬 সব সবজি
-</a>;

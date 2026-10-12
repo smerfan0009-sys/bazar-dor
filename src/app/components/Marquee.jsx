@@ -40,7 +40,7 @@ const Marquee = async () => {
   const headlines = Array.isArray(data) ? data : data.data || [];
 
   return (
-    <div className="flex py-1 border-y border-gray-200">
+    <div className="flex py-2 bg-[#FAFCFA] border-y border-gray-200">
       <MarqueeText
         duration={15}
         direction="right"

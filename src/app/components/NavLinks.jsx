@@ -19,7 +19,7 @@ export default function NavLinks() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center gap-2 sm:gap-4 border-b border-gray-100 overflow-x-auto py-2">
+    <div className="flex items-center justify-center gap-2 sm:gap-4 border-b border-gray-100 overflow-x-auto">
       {categories.map((n) => {
         const href = `/categories/${n.slug}`;
         const isActive = pathname === href;

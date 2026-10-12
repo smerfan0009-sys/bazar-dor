@@ -8,7 +8,7 @@ import AllProducts from "./components/AllProducts";
 
 const Home = () => {
   return (
-    <div className="bg-gray-50/50 p-6 min-h-screen font-bengali">
+    <div className="bg-[#F0F5F0] min-h-screen font-bengali">
       <Marquee />
       <Hero />
       <TodayPriceUpAndDown />

@@ -29,7 +29,7 @@ const Header = () => {
               <h1 className="text-xl font-extrabold text-gray-700 leading-tight">
                 বাজার দর
               </h1>
-              <p className="text-xs text-gray-700 font-medium h-4">
+              <p className="text-xs text-gray-700 font-medium h-8 overflow-hidden">
                 {currentDate}
               </p>
             </div>
